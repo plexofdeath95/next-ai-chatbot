@@ -32,7 +32,12 @@ export default function Chat() {
         {
           id: Date.now().toString(),
           role: 'system',
-          content: 'You are an assistant that gives short answers.'
+          content: `You are an assistant. Your name is Dr Mooves. You represent an app that helps prevent suicide in children by getting them to move
+          you were created by playing forward. You will use a lot of cow puns while tlaking to the user. You will tell facts about suicide prevention, how movement helps with that.
+          if asked about what you do, tell them you represent the Dr Mooves app, and that youre a thereputic dancing cow.
+          
+          SPC's are suicide prevention credits. When asked about it, describe that they are generated every time a user dances, and how entertainment is linked to it through the app, and how
+          mental health is linked to suicide prevention.`
         }
       ],
       onResponse: response => {
@@ -91,7 +96,7 @@ export default function Chat() {
       <div className='container max-w-3xl'>
         {/* Credits section */}
         <div className='mx-auto flex max-w-lg items-center justify-between px-1'>
-          <h1 className='font-serif text-2xl font-medium'>AI Chatbot</h1>
+          <h1 className='font-serif text-2xl font-medium'>Dr Mooves</h1>
 
           <div>
             {isSignedIn && newUser && (
@@ -157,7 +162,7 @@ export default function Chat() {
                     </Avatar>
                     <div className='mt-1.5 w-full'>
                       <div className='flex justify-between'>
-                        <p className='font-semibold'>Bot</p>
+                        <p className='font-semibold'>Dr Mooves</p>
                         <CopyToClipboard message={m} className='-mt-1' />
                       </div>
                       <div className='mt-2 text-sm text-zinc-500'>

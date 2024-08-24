@@ -9,13 +9,13 @@ import { Drawer as DrawerPrimitive } from 'vaul'
 
 import { cn } from '@/lib/utils'
 import { Check } from 'lucide-react'
-import { createStripeCheckoutSession } from '@/lib/actions'
+import { AddFreeCredits, createStripeCheckoutSession } from '@/lib/actions'
 
 import { loadStripe } from '@stripe/stripe-js'
 import { toast } from 'sonner'
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-)
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
+// )
 
 const tiers = [
   {
@@ -34,29 +34,37 @@ export default function SubscriptionDialog(
 ) {
   async function handleCheckout() {
     try {
-      const lineItems = [
-        {
-          price: 'price_1OpZIpFohaWPLRtCx8kh4FN5',
-          quantity: 1
-        }
-      ]
+      // const lineItems = [
+      //   {
+      //     price: 'price_1OpZIpFohaWPLRtCx8kh4FN5',
+      //     quantity: 1
+      //   }
+      // ]
 
-      const { sessionId, checkoutError } =
-        await createStripeCheckoutSession(lineItems)
+      // const { sessionId, checkoutError } =
+      //   await createStripeCheckoutSession(lineItems)
 
-      if (!sessionId || checkoutError) {
-        throw new Error(checkoutError || 'Failed to create checkout session!')
-      }
+      // if (!sessionId || checkoutError) {
+      //   throw new Error(checkoutError || 'Failed to create checkout session!')
+      // }
 
-      const stripe = await stripePromise
-      if (!stripe) throw new Error('Failed to load Stripe!')
+      // const stripe = await stripePromise
+      // if (!stripe) throw new Error('Failed to load Stripe!')
 
-      const { error } = await stripe.redirectToCheckout({ sessionId })
+      // const { error } = await stripe.redirectToCheckout({ sessionId })
 
-      if (error) {
-        if (error instanceof Error) throw new Error(error.message)
+      // if (error) {
+      //   if (error instanceof Error) throw new Error(error.message)
+      // } else {
+      //   throw error
+      // }
+      console.log('handleCheckout')
+      const res = await AddFreeCredits()
+      if (res.success) {
+        toast.success('Credits added successfully!')
       } else {
-        throw error
+        toast.error('Failed to add credits!')
+        throw new Error('Failed to add credits!')
       }
     } catch (error: any) {
       toast.error(error?.message || 'Failed to create checkout session!')

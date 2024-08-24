@@ -20,13 +20,14 @@ export async function POST(req: Request) {
 
     const credits = Number(user.publicMetadata?.credits || 0)
 
-    if (!credits) {
-      return new NextResponse('You have no credits left.', { status: 402 })
-    }
+    // if (!credits) {
+    //   return new NextResponse('You have no credits left.', { status: 402 })
+    // }
 
     const { messages } = await req.json()
+
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o-mini',
       stream: true,
       messages
     })

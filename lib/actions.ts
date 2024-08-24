@@ -13,12 +13,20 @@ export async function AddFreeCredits() {
   if (!user) {
     return { success: false, error: 'You need to sign in first.' }
   }
-
-  await clerkClient.users.updateUserMetadata(user.id, {
-    publicMetadata: {
-      credits: 10
-    }
-  })
+  const currentCredits = user.publicMetadata?.credits
+  if (!currentCredits) {
+    await clerkClient.users.updateUserMetadata(user.id, {
+      publicMetadata: {
+        credits: 100
+      }
+    })
+  } else {
+    await clerkClient.users.updateUserMetadata(user.id, {
+      publicMetadata: {
+        credits: Number(currentCredits) + 100
+      }
+    })
+  }
 
   return { success: true, error: null }
 }
